@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NACOS Student Portal</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f5f9;
+  color: #263238;
+}
+
+header {
+  background: #1565c0;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 23px;
+}
+
+header p {
+  margin: 5px 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 12px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #00000012;
+}
+
+h2 {
+  color: #1565c0;
+  margin-top: 0;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+input, select {
+  border: 1px solid #ccd3dc;
+  background: white;
+}
+
+button {
+  border: none;
+  background: #1565c0;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+}
+
+.secondary {
+  background: #455a64;
+}
+
+.danger {
+  background: #c62828;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.message {
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+.success {
+  color: #187b35;
+}
+
+.error {
+  color: #c62828;
+}
+
+.small {
+  font-size: 13px;
+  color: #607080;
+  line-height: 1.5;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #dce2e8;
+  font-size: 14px;
+}
+
+th {
+  background: #eaf2fc;
+}
+
+td button {
+  min-width: 100px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #607080;
+  font-size: 13px;
+}
+
+#studentDashboard,
+#directorDashboard {
+  overflow-wrap: anywhere;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>NACOS Student Portal</h1>
+  <p>Computer Science Department</p>
+  <p>Adamawa State College of Agricultural Science and Technology, Ganye</p>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+
+<section id="loginSection" class="card">
+
+  <h2>Account Login</h2>
+
+  <p class="small">
+    Sign in using your registered email address and password.
+  </p>
+
+  <form id="loginForm">
+
+    <label for="loginEmail">Email Address</label>
+    <input id="loginEmail" type="email"
+           autocomplete="username" required>
+
+    <label for="loginPassword">Password</label>
+    <input id="loginPassword" type="password"
+           autocomplete="current-password" required>
+
+    <button id="loginButton" type="submit">Login</button>
+
+  </form>
+
+  <button id="resetButton" class="secondary" type="button">
+    Reset Forgotten Password
+  </button>
+
+  <p id="loginMessage" class="message" role="status"></p>
+
+</section>
+
+
+<!-- STUDENT DASHBOARD -->
+
+<section id="studentDashboard" class="hidden">
+
+  <div class="card">
+
+    <h2>Student Dashboard</h2>
+
+    <p id="studentWelcome"></p>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Student Profile</h2>
+
+    <form id="profileForm">
+
+      <label for="fullName">Full Name</label>
+      <input id="fullName" type="text" required>
+
+      <label for="regNumber">Registration Number</label>
+      <input id="regNumber" type="text" required>
+
+      <label for="department">Department</label>
+      <input id="department" type="text"
+             value="Computer Science" required>
+
+      <label for="level">Academic Level</label>
+
+      <select id="level" required>
+        <option value="">Choose your level</option>
+        <option value="ND I">ND I</option>
+        <option value="ND II">ND II</option>
+        <option value="HND I">HND I</option>
+        <option value="HND II">HND II</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="phone">Phone Number</label>
+      <input id="phone" type="tel">
+
+      <label for="stateOfOrigin">State of Origin</label>
+      <input id="stateOfOrigin" type="text">
+
+      <label for="lga">Local Government Area</label>
+      <input id="lga" type="text">
+
+      <label for="address">Residential Address</label>
+      <input id="address" type="text">
+
+      <button id="saveProfileButton" type="submit">
+        Save Student Profile
+      </button>
+
+    </form>
+
+    <p id="profileMessage" class="message" role="status"></p>
+
+  </div>
+
+  <div class="card">
+
+    <button id="studentLogoutButton"
+            class="danger" type="button">
+      Logout
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SOFTWARE DIRECTOR DASHBOARD -->
+
+<section id="directorDashboard" class="hidden">
+
+  <div class="card">
+
+    <h2>Software Director Dashboard</h2>
+
+    <p id="directorWelcome"></p>
+
+    <p>
+      Welcome to the NACOS administration section.
+    </p>
+
+    <button id="loadStudentsButton" type="button">
+      Load Student Profiles
+    </button>
+
+    <p id="directorMessage" class="message" role="status"></p>
+
+  </div>
+
+
+  <!-- REGISTER MEMBER -->
+
+  <div class="card">
+
+    <h2>Register New NACOS Member</h2>
+
+    <p class="small">
+      Enter the member's correct information. The member must have
+      access to the email address entered here to reset their password.
+    </p>
+
+    <form id="registerMemberForm">
+
+      <label for="newFullName">Full Name</label>
+      <input id="newFullName" type="text" required>
+
+      <label for="newRegNumber">Registration Number</label>
+      <input id="newRegNumber" type="text" required>
+
+      <label for="newEmail">Email Address</label>
+      <input id="newEmail" type="email" required>
+
+      <label for="newPhone">Phone Number</label>
+      <input id="newPhone" type="tel" required>
+
+      <label for="newState">State of Origin</label>
+      <input id="newState" type="text" required>
+
+      <label for="newLga">Local Government Area</label>
+      <input id="newLga" type="text" required>
+
+      <label for="newAddress">Residential Address</label>
+      <input id="newAddress" type="text" required>
+
+      <label for="newDepartment">Department</label>
+      <input id="newDepartment" type="text"
+             value="Computer Science" required>
+
+      <label for="newLevel">Academic Level</label>
+
+      <select id="newLevel" required>
+        <option value="">Choose level</option>
+        <option value="ND I">ND I</option>
+        <option value="ND II">ND II</option>
+        <option value="HND I">HND I</option>
+        <option value="HND II">HND II</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <button id="registerMemberButton" type="submit">
+        Register Member
+      </button>
+
+    </form>
+
+    <p id="registerMessage" class="message" role="status"></p>
+
+  </div>
+
+
+  <!-- REGISTERED STUDENTS -->
+
+  <div class="card">
+
+    <h2>Registered Student Profiles</h2>
+
+    <input id="studentSearch" type="search"
+           placeholder="Search by name or registration number">
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Registration Number</th>
+            <th>Department</th>
+            <th>Level</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="studentsTableBody">
+          <tr>
+            <td colspan="5">
+              Tap Load Student Profiles to begin.
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- EDIT STUDENT -->
+
+  <div class="card">
+
+    <h2>Edit Student Profile</h2>
+
+    <form id="directorEditForm">
+
+      <input id="editUserId" type="hidden">
+
+      <label for="editFullName">Full Name</label>
+      <input id="editFullName" type="text" required>
+
+      <label for="editRegNumber">Registration Number</label>
+      <input id="editRegNumber" type="text" required>
+
+      <label for="editDepartment">Department</label>
+      <input id="editDepartment" type="text" required>
+
+      <label for="editLevel">Level</label>
+      <input id="editLevel" type="text" required>
+
+      <label for="editPhone">Phone Number</label>
+      <input id="editPhone" type="tel">
+
+      <label for="editState">State of Origin</label>
+      <input id="editState" type="text">
+
+      <label for="editLga">Local Government Area</label>
+      <input id="editLga" type="text">
+
+      <label for="editAddress">Residential Address</label>
+      <input id="editAddress" type="text">
+
+      <button id="updateStudentButton" type="submit">
+        Update Student Profile
+      </button>
+
+    </form>
+
+    <p id="editMessage" class="message" role="status"></p>
+
+  </div>
+
+
+  <!-- EXCO MANAGEMENT -->
+
+  <div class="card">
+
+    <h2>NACOS EXCO Management</h2>
+
+    <p class="small">
+      Select a registered student, assign an executive position,
+      and enter the administration's academic session.
+      Only the Software Director can manage executive appointments.
+    </p>
+
+    <form id="excoForm">
+
+      <label for="excoStudent">Select Registered Student</label>
+
+      <select id="excoStudent" required>
+        <option value="">Load student profiles first</option>
+      </select>
+
+      <label for="excoPosition">EXCO Position</label>
+
+      <select id="excoPosition" required>
+
+        <option value="">Choose position</option>
+        <option value="President">President</option>
+        <option value="Vice President">Vice President</option>
+        <option value="Secretary">Secretary</option>
+        <option value="Assistant Secretary">Assistant Secretary</option>
+        <option value="Financial Secretary">Financial Secretary</option>
+        <option value="Treasurer">Treasurer</option>
+        <option value="Welfare Director">Welfare Director</option>
+        <option value="Software Director">Software Director</option>
+        <option value="Director of Socials">Director of Socials</option>
+        <option value="Director of Sports">Director of Sports</option>
+        <option value="Public Relations Officer">Public Relations Officer</option>
+        <option value="Auditor">Auditor</option>
+        <option value="Other">Other</option>
+
+      </select>
+
+      <label for="excoSession">Academic Session</label>
+
+      <input id="excoSession"
+             type="text"
+             placeholder="Example: 2026-2027"
+             pattern="[0-9]{4}-[0-9]{4}"
+             title="Enter the session in the format 2026-2027"
+             required>
+
+      <button id="assignExcoButton" type="submit">
+        Assign EXCO Position
+      </button>
+
+    </form>
+
+    <p id="excoMessage" class="message" role="status"></p>
+
+  </div>
+
+
+  <!-- EXCO RECORDS -->
+
+  <div class="card">
+
+    <h2>EXCO Records and History</h2>
+
+    <p class="small">
+      Previous appointments remain in the records when their status
+      changes to Ended. Ending an appointment does not delete it.
+    </p>
+
+    <button id="loadExcoButton" type="button">
+      Load EXCO Records
+    </button>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Executive</th>
+            <th>Registration Number</th>
+            <th>Position</th>
+            <th>Session</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="excoTableBody">
+          <tr>
+            <td colspan="6">
+              Tap Load EXCO Records to view appointments.
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- LOGOUT -->
+
+  <div class="card">
+
+    <button id="directorLogoutButton"
+            class="danger" type="button">
+      Logout
+    </button>
+
+  </div>
+
+</section>
+
+</div>
+
+<footer>
+  NACOS Student Portal | Computer Science Department
+</footer>
+
+
+<script type="module">
+
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  sendPasswordResetEmail,
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* FIREBASE CONFIGURATION */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyABKLo0k_2IwAv2bmlk5Xcxyg04mrrpUvY",
+  authDomain: "nacos-cs-portal.firebaseapp.com",
+  projectId: "nacos-cs-portal",
+  storageBucket: "nacos-cs-portal.firebasestorage.app",
+  messagingSenderId: "636432978194",
+  appId: "1:636432978194:web:e52464fead75a3368163cb"
+};
+
+const SOFTWARE_DIRECTOR_UID =
+  "u1l5Z7sR50Mt79vdAGoJp5hZ8Qb2";
+
+
+/* FIREBASE APPS */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* Separate authentication for creating member accounts. */
+const memberApp = initializeApp(firebaseConfig, "MemberCreationApp");
+const memberAuth = getAuth(memberApp);
+
+
+/* MESSAGES AND DATA */
+
+const loginMessage = document.getElementById("loginMessage");
+const profileMessage = document.getElementById("profileMessage");
+const directorMessage = document.getElementById("directorMessage");
+const editMessage = document.getElementById("editMessage");
+const registerMessage = document.getElementById("registerMessage");
+const excoMessage = document.getElementById("excoMessage");
+
+let allStudents = [];
+let allExcoRecords = [];
+
+
+function showMessage(element, message, isError = false) {
+  element.textContent = message;
+  element.className = "message " + (isError ? "error" : "success");
+}
+
+
+function errorText(error) {
+  console.error(error);
+
+  const messages = {
+    "auth/invalid-credential":
+      "Incorrect email or password. Check your details.",
+
+    "auth/too-many-requests":
+      "Too many attempts. Please wait and try again.",
+
+    "auth/email-already-in-use":
+      "This email already has a Firebase account.",
+
+    "auth/invalid-email":
+      "The email address is invalid.",
+
+    "auth/weak-password":
+      "Firebase rejected the generated password.",
+
+    "auth/network-request-failed":
+      "Network problem. Check your internet connection.",
+
+    "permission-denied":
+      "Firebase denied this action. Check your published Firestore Rules.",
+
+    "auth/operation-not-allowed":
+      "Email and password sign-in must be enabled in Firebase Authentication."
+  };
+
+  return messages[error.code] ||
+         error.message ||
+         "An unexpected error occurred.";
+}
+
+
+function isDirector() {
+  return auth.currentUser &&
+         auth.currentUser.uid === SOFTWARE_DIRECTOR_UID;
+}
+
+
+/* LOGIN */
+
+document.getElementById("loginForm").addEventListener(
+  "submit", async event => {
+
+    event.preventDefault();
+
+    const email =
+      document.getElementById("loginEmail").value.trim();
+
+    const password =
+      document.getElementById("loginPassword").value;
+
+    const button = document.getElementById("loginButton");
+
+    button.disabled = true;
+    showMessage(loginMessage, "Signing in...");
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      showMessage(loginMessage, "Login successful.");
+    } catch (error) {
+      showMessage(loginMessage, errorText(error), true);
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+
+/* PASSWORD RESET */
+
+document.getElementById("resetButton").addEventListener(
+  "click", async () => {
+
+    const email =
+      document.getElementById("loginEmail").value.trim();
+
+    if (!email) {
+      showMessage(loginMessage, "Enter your email address first.", true);
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+
+      showMessage(
+        loginMessage,
+        "If this account exists, a password-reset email has been requested. Check your inbox and spam folder."
+      );
+    } catch (error) {
+      showMessage(loginMessage, errorText(error), true);
+    }
+  }
+);
+
+
+/* DASHBOARD SWITCHING */
+
+onAuthStateChanged(auth, async user => {
+
+  document.getElementById("loginSection").classList.add("hidden");
+  document.getElementById("studentDashboard").classList.add("hidden");
+  document.getElementById("directorDashboard").classList.add("hidden");
+
+  if (!user) {
+    document.getElementById("loginSection").classList.remove("hidden");
+    return;
+  }
+
+  if (user.uid === SOFTWARE_DIRECTOR_UID) {
+
+    document.getElementById("directorDashboard").classList.remove("hidden");
+
+    document.getElementById("directorWelcome").textContent =
+      "Signed in as Software Director: " + (user.email || "");
+
+    return;
+  }
+
+  document.getElementById("studentDashboard").classList.remove("hidden");
+
+  document.getElementById("studentWelcome").textContent =
+    "Welcome, " + (user.email || "Student");
+
+  await loadMyProfile(user);
+});
+
+
+/* LOAD STUDENT PROFILE */
+
+async function loadMyProfile(user) {
+
+  try {
+
+    const profileRef = doc(db, "studentProfiles", user.uid);
+    const profileSnap = await getDoc(profileRef);
+
+    if (!profileSnap.exists()) {
+
+      showMessage(
+        profileMessage,
+        "Your profile has not been created. Please contact the Software Director."
+      );
+
+      return;
+    }
+
+    const data = profileSnap.data();
+
+    document.getElementById("fullName").value = data.fullName || "";
+    document.getElementById("regNumber").value = data.regNumber || "";
+
+    document.getElementById("department").value =
+      data.department || "Computer Science";
+
+    document.getElementById("level").value = data.level || "";
+    document.getElementById("phone").value = data.phone || "";
+
+    document.getElementById("stateOfOrigin").value =
+      data.stateOfOrigin || "";
+
+    document.getElementById("lga").value = data.lga || "";
+    document.getElementById("address").value = data.address || "";
+
+  } catch (error) {
+    showMessage(profileMessage, errorText(error), true);
+  }
+}
+
+
+/* SAVE OWN PROFILE */
+
+document.getElementById("profileForm").addEventListener(
+  "submit", async event => {
+
+    event.preventDefault();
+
+    const user = auth.currentUser;
+
+    if (!user) {
+      showMessage(profileMessage, "Please log in again.", true);
+      return;
+    }
+
+    const button = document.getElementById("saveProfileButton");
+    button.disabled = true;
+
+    const profile = {
+      fullName: document.getElementById("fullName").value.trim(),
+      regNumber: document.getElementById("regNumber").value.trim(),
+      department: document.getElementById("department").value.trim(),
+      level: document.getElementById("level").value,
+      phone: document.getElementById("phone").value.trim(),
+      stateOfOrigin: document.getElementById("stateOfOrigin").value.trim(),
+      lga: document.getElementById("lga").value.trim(),
+      address: document.getElementById("address").value.trim(),
+      email: user.email || "",
+      updatedAt: serverTimestamp()
+    };
+
+    try {
+
+      /*
+       * merge:true is suitable for an existing profile.
+       * Firestore Rules intentionally prevent students from creating
+       * new member profiles themselves.
+       */
+
+      await setDoc(
+        doc(db, "studentProfiles", user.uid),
+        profile,
+        { merge: true }
+      );
+
+      showMessage(profileMessage, "Student profile saved successfully!");
+
+    } catch (error) {
+      showMessage(profileMessage, errorText(error), true);
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+
+/* TEMPORARY PASSWORD GENERATOR */
+
+function generateTemporaryPassword() {
+
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+
+  const alphabet =
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%";
+
+  return Array.from(
+    bytes,
+    byte => alphabet[byte % alphabet.length]
+  ).join("");
+}
+
+
+/* REGISTER NEW MEMBER */
+
+document.getElementById("registerMemberForm").addEventListener(
+  "submit", async event => {
+
+    event.preventDefault();
+
+    if (!isDirector()) {
+      showMessage(
+        registerMessage,
+        "Only the Software Director can register members.",
+        true
+      );
+      return;
+    }
+
+    const button = document.getElementById("registerMemberButton");
+    button.disabled = true;
+
+    showMessage(registerMessage, "Creating the member account...");
+
+    const fullName =
+      document.getElementById("newFullName").value.trim();
+
+    const regNumber =
+      document.getElementById("newRegNumber").value.trim();
+
+    const email =
+      document.getElementById("newEmail").value.trim();
+
+    const phone =
+      document.getElementById("newPhone").value.trim();
+
+    const stateOfOrigin =
+      document.getElementById("newState").value.trim();
+
+    const lga =
+      document.getElementById("newLga").value.trim();
+
+    const address =
+      document.getElementById("newAddress").value.trim();
+
+    const department =
+      document.getElementById("newDepartment").value.trim();
+
+    const level =
+      document.getElementById("newLevel").value;
+
+    let createdUid = null;
+
+    try {
+
+      const credential = await createUserWithEmailAndPassword(
+        memberAuth,
+        email,
+        generateTemporaryPassword()
+      );
+
+      createdUid = credential.user.uid;
+
+      const memberProfile = {
+        fullName,
+        regNumber,
+        department,
+        level,
+        phone,
+        stateOfOrigin,
+        lga,
+        address,
+        email,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      };
+
+      await setDoc(
+        doc(db, "studentProfiles", createdUid),
+        memberProfile
+      );
+
+      let emailMessage =
+        "Member account and profile created successfully.";
+
+      try {
+
+        await sendPasswordResetEmail(memberAuth, email);
+
+        emailMessage +=
+          " A password-reset email was requested for " + email +
+          ". Ask the member to check their inbox and spam folder.";
+
+      } catch (emailError) {
+
+        console.error(emailError);
+
+        emailMessage +=
+          " However, the password-reset email could not be requested. " +
+          errorText(emailError);
+      }
+
+      showMessage(registerMessage, emailMessage);
+
+      document.getElementById("registerMemberForm").reset();
+
+      document.getElementById("newDepartment").value =
+        "Computer Science";
+
+      await signOut(memberAuth);
+
+      await loadStudents();
+
+    } catch (error) {
+
+      let message = errorText(error);
+
+      if (createdUid) {
+        message +=
+          " The authentication account may already exist. Check Firebase Authentication and Firestore before trying again.";
+      }
+
+      showMessage(registerMessage, message, true);
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+
+/* LOAD STUDENT PROFILES */
+
+document.getElementById("loadStudentsButton").addEventListener(
+  "click", loadStudents
+);
+
+
+async function loadStudents() {
+
+  if (!isDirector()) {
+    showMessage(directorMessage, "Director access required.", true);
+    return;
+  }
+
+  showMessage(directorMessage, "Loading student profiles...");
+
+  try {
+
+    const snapshot = await getDocs(
+      collection(db, "studentProfiles")
+    );
+
+    allStudents = snapshot.docs.map(item => ({
+      userId: item.id,
+      ...item.data()
+    }));
+
+    displayStudents(allStudents);
+    populateExcoStudentList();
+
+    showMessage(
+      directorMessage,
+      "Loaded " + allStudents.length + " student profile(s)."
+    );
+
+  } catch (error) {
+    showMessage(directorMessage, errorText(error), true);
+  }
+}
+
+
+/* DISPLAY STUDENTS */
+
+function displayStudents(students) {
+
+  const tbody = document.getElementById("studentsTableBody");
+  tbody.replaceChildren();
+
+  if (students.length === 0) {
+
+    const row = tbody.insertRow();
+    const cell = row.insertCell();
+
+    cell.colSpan = 5;
+    cell.textContent = "No student profiles found.";
+
+    return;
+  }
+
+  students.forEach(student => {
+
+    const row = tbody.insertRow();
+
+    row.insertCell().textContent = student.fullName || "";
+    row.insertCell().textContent = student.regNumber || "";
+    row.insertCell().textContent = student.department || "";
+    row.insertCell().textContent = student.level || "";
+
+    const actionCell = row.insertCell();
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.textContent = "Edit";
+
+    button.addEventListener(
+      "click",
+      () => selectStudent(student)
+    );
+
+    actionCell.appendChild(button);
+  });
+}
+
+
+/* SEARCH STUDENTS */
+
+document.getElementById("studentSearch").addEventListener(
+  "input", event => {
+
+    const query = event.target.value.trim().toLowerCase();
+
+    const filtered = allStudents.filter(student => {
+
+      const name = (student.fullName || "").toLowerCase();
+      const reg = (student.regNumber || "").toLowerCase();
+
+      return name.includes(query) || reg.includes(query);
+    });
+
+    displayStudents(filtered);
+  }
+);
+
+
+/* SELECT STUDENT FOR EDITING */
+
+function selectStudent(student) {
+
+  document.getElementById("editUserId").value = student.userId;
+
+  document.getElementById("editFullName").value =
+    student.fullName || "";
+
+  document.getElementById("editRegNumber").value =
+    student.regNumber || "";
+
+  document.getElementById("editDepartment").value =
+    student.department || "";
+
+  document.getElementById("editLevel").value =
+    student.level || "";
+
+  document.getElementById("editPhone").value =
+    student.phone || "";
+
+  document.getElementById("editState").value =
+    student.stateOfOrigin || "";
+
+  document.getElementById("editLga").value =
+    student.lga || "";
+
+  document.getElementById("editAddress").value =
+    student.address || "";
+
+  showMessage(editMessage, "Student selected for editing.");
+}
+
+
+/* UPDATE STUDENT */
+
+document.getElementById("directorEditForm").addEventListener(
+  "submit", async event => {
+
+    event.preventDefault();
+
+    if (!isDirector()) {
+      showMessage(editMessage, "Director access required.", true);
+      return;
+    }
+
+    const userId = document.getElementById("editUserId").value;
+
+    if (!userId) {
+      showMessage(editMessage, "Select a student first.", true);
+      return;
+    }
+
+    const button = document.getElementById("updateStudentButton");
+    button.disabled = true;
+
+    const updatedProfile = {
+      fullName: document.getElementById("editFullName").value.trim(),
+      regNumber: document.getElementById("editRegNumber").value.trim(),
+      department: document.getElementById("editDepartment").value.trim(),
+      level: document.getElementById("editLevel").value.trim(),
+      phone: document.getElementById("editPhone").value.trim(),
+      stateOfOrigin: document.getElementById("editState").value.trim(),
+      lga: document.getElementById("editLga").value.trim(),
+      address: document.getElementById("editAddress").value.trim(),
+      updatedAt: serverTimestamp()
+    };
+
+    try {
+
+      await updateDoc(
+        doc(db, "studentProfiles", userId),
+        updatedProfile
+      );
+
+      showMessage(editMessage, "Student profile updated successfully.");
+
+      await loadStudents();
+
+    } catch (error) {
+      showMessage(editMessage, errorText(error), true);
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+
+/* POPULATE EXCO STUDENT LIST */
+
+function populateExcoStudentList() {
+
+  const select = document.getElementById("excoStudent");
+
+  select.replaceChildren();
+
+  const firstOption = document.createElement("option");
+  firstOption.value = "";
+  firstOption.textContent = "Choose a registered student";
+
+  select.appendChild(firstOption);
+
+  allStudents.forEach(student => {
+
+    const option = document.createElement("option");
+
+    option.value = student.userId;
+
+    option.textContent =
+      (student.fullName || "Unnamed student") +
+      " — " +
+      (student.regNumber || "No registration number");
+
+    select.appendChild(option);
+  });
+}
+
+
+/* ASSIGN EXCO POSITION */
+
+document.getElementById("excoForm").addEventListener(
+  "submit", async event => {
+
+    event.preventDefault();
+
+    if (!isDirector()) {
+      showMessage(excoMessage, "Only the Software Director can assign EXCO positions.", true);
+      return;
+    }
+
+    if (allStudents.length === 0) {
+      showMessage(excoMessage, "First tap Load Student Profiles.", true);
+      return;
+    }
+
+    const studentUid =
+      document.getElementById("excoStudent").value;
+
+    const position =
+      document.getElementById("excoPosition").value;
+
+    const session =
+      document.getElementById("excoSession").value.trim();
+
+    const student = allStudents.find(
+      item => item.userId === studentUid
+    );
+
+    if (!student) {
+      showMessage(excoMessage, "Please select a registered student.", true);
+      return;
+    }
+
+    if (!position || !session) {
+      showMessage(excoMessage, "Complete all EXCO fields.", true);
+      return;
+    }
+
+    const button = document.getElementById("assignExcoButton");
+    button.disabled = true;
+
+    showMessage(excoMessage, "Saving EXCO appointment...");
+
+    try {
+
+      /*
+       * Load current records before checking for duplicates.
+       */
+
+      const snapshot = await getDocs(
+        collection(db, "excoRecords")
+      );
+
+      allExcoRecords = snapshot.docs.map(item => ({
+        recordId: item.id,
+        ...item.data()
+      }));
+
+      /*
+       * A student may hold only one active EXCO appointment
+       * per academic session in this portal.
+       */
+
+      const existingAppointment = allExcoRecords.find(record =>
+        record.studentUid === studentUid &&
+        record.session === session &&
+        record.status === "Active"
+      );
+
+      if (existingAppointment) {
+
+        showMessage(
+          excoMessage,
+          "This student already has an active EXCO appointment for " +
+          session +
+          ". End the old appointment before assigning another position.",
+          true
+        );
+
+        return;
+      }
+
+      /*
+       * Prevent two active holders of the same position
+       * in the same session.
+       */
+
+      const occupiedPosition = allExcoRecords.find(record =>
+        record.position === position &&
+        record.session === session &&
+        record.status === "Active"
+      );
+
+      if (occupiedPosition) {
+
+        showMessage(
+          excoMessage,
+          "The position " + position +
+          " already has an active holder for " + session + ".",
+          true
+        );
+
+        return;
+      }
+
+      /*
+       * Create a separate EXCO history record.
+       * Existing records are not overwritten.
+       */
+
+      await addDoc(
+        collection(db, "excoRecords"),
+        {
+          studentUid: student.userId,
+          fullName: student.fullName || "",
+          regNumber: student.regNumber || "",
+          department: student.department || "",
+          level: student.level || "",
+          position,
+          session,
+          status: "Active",
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+          createdBy: auth.currentUser.uid
+        }
+      );
+
+      showMessage(
+        excoMessage,
+        student.fullName +
+        " has been assigned as " +
+        position +
+        " for the " +
+        session +
+        " session."
+      );
+
+      document.getElementById("excoForm").reset();
+
+      await loadExcoRecords();
+
+    } catch (error) {
+
+      showMessage(excoMessage, errorText(error), true);
+
+    } finally {
+
+      button.disabled = false;
+    }
+  }
+);
+
+
+/* LOAD EXCO RECORDS */
+
+document.getElementById("loadExcoButton").addEventListener(
+  "click", loadExcoRecords
+);
+
+
+async function loadExcoRecords() {
+
+  if (!auth.currentUser) {
+    showMessage(excoMessage, "Please log in first.", true);
+    return;
+  }
+
+  showMessage(excoMessage, "Loading EXCO records...");
+
+  try {
+
+    const snapshot = await getDocs(
+      collection(db, "excoRecords")
+    );
+
+    allExcoRecords = snapshot.docs.map(item => ({
+      recordId: item.id,
+      ...item.data()
+    }));
+
+    /*
+     * Sort by session and then position.
+     */
+
+    allExcoRecords.sort((a, b) =>
+      (b.session || "").localeCompare(a.session || "") ||
+      (a.position || "").localeCompare(b.position || "")
+    );
+
+    displayExcoRecords(allExcoRecords);
+
+    showMessage(
+      excoMessage,
+      "Loaded " + allExcoRecords.length + " EXCO record(s)."
+    );
+
+  } catch (error) {
+
+    showMessage(excoMessage, errorText(error), true);
+  }
+}
+
+
+/* DISPLAY EXCO RECORDS */
+
+function displayExcoRecords(records) {
+
+  const tbody = document.getElementById("excoTableBody");
+  tbody.replaceChildren();
+
+  if (records.length === 0) {
+
+    const row = tbody.insertRow();
+    const cell = row.insertCell();
+
+    cell.colSpan = 6;
+    cell.textContent = "No EXCO records found.";
+
+    return;
+  }
+
+  records.forEach(record => {
+
+    const row = tbody.insertRow();
+
+    row.insertCell().textContent = record.fullName || "";
+    row.insertCell().textContent = record.regNumber || "";
+    row.insertCell().textContent = record.position || "";
+    row.insertCell().textContent = record.session || "";
+    row.insertCell().textContent = record.status || "Unknown";
+
+    const actionCell = row.insertCell();
+
+    if (record.status === "Active" && isDirector()) {
+
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.textContent = "End Appointment";
+      button.className = "danger";
+
+      button.addEventListener(
+        "click",
+        () => endExcoAppointment(record)
+      );
+
+      actionCell.appendChild(button);
+
+    } else {
+
+      actionCell.textContent =
+        record.status === "Ended" ? "History preserved" : "—";
+    }
+  });
+}
+
+
+/* END AN EXCO APPOINTMENT WITHOUT DELETING HISTORY */
+
+async function endExcoAppointment(record) {
+
+  if (!isDirector()) {
+    showMessage(excoMessage, "Director access required.", true);
+    return;
+  }
+
+  const confirmed = confirm(
+    "End " + record.position +
+    " appointment for " + record.fullName +
+    " in session " + record.session +
+    "?\n\nThe record will be kept in EXCO history."
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+
+    await updateDoc(
+      doc(db, "excoRecords", record.recordId),
+      {
+        status: "Ended",
+        endedAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      }
+    );
+
+    showMessage(
+      excoMessage,
+      "Appointment ended. The historical record has been preserved."
+    );
+
+    await loadExcoRecords();
+
+  } catch (error) {
+
+    showMessage(excoMessage, errorText(error), true);
+  }
+}
+
+
+/* LOGOUT */
+
+document.getElementById("studentLogoutButton").addEventListener(
+  "click", logout
+);
+
+document.getElementById("directorLogoutButton").addEventListener(
+  "click", logout
+);
+
+
+async function logout() {
+
+  try {
+    await signOut(auth);
+  } catch (error) {
+    alert(errorText(error));
+  }
+}
+
+</script>
+
+</body>
+</html>
